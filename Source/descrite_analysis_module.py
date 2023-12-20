@@ -1,4 +1,4 @@
-## Define the model
+
 import pandas as pd
 
 ### Convert json file to dataframe
