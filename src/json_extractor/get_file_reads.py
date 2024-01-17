@@ -10,7 +10,6 @@ def get_test_file (name):
     return test_file
 
 
-
 ### Get reads
 
 def reads_correctly_multiple_json_files(name):
