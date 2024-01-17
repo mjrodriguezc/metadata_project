@@ -7,7 +7,7 @@ import json
 
 def get_test_file (name):
 
-    test_data_path = "path/"
+    test_data_path = "PATH"
     test_file = os.path.join(test_data_path,name)
     return test_file
 
