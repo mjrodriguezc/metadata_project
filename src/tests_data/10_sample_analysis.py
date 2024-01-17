@@ -4,7 +4,7 @@ import descrite_analysis_module
 import Unit_test_descriptive_analysis
 
 # Set the working directory
-os.chdir('/Users/s2531396/Library/CloudStorage/OneDrive-UniversityofEdinburgh/PhD/Code')
+os.chdir('path')
 
 file_list =["1153.json", "2842.json", "3492.json", "3638.json","3647.json", "3648.json",
             "10010.json", "10040.json", "10060.json", "17264.json", "19235.json"]
