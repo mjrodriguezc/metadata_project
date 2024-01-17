@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import json
 
-os.chdir('/Users/s2531396/Library/CloudStorage/OneDrive-UniversityofEdinburgh/PhD/Code')
+os.chdir('PATH')
 
 file_list =["1153.json", "2842.json", "3492.json", "3638.json","3647.json", "3648.json",
             "10010.json", "10040.json", "10060.json", "17264.json", "19235.json"]
