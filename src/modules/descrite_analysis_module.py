@@ -7,7 +7,7 @@ import json
 
 def get_test_file (name):
 
-    test_data_path = "/Users/s2531396/Library/CloudStorage/OneDrive-UniversityofEdinburgh/PhD/Code"
+    test_data_path = "path/"
     test_file = os.path.join(test_data_path,name)
     return test_file
 
