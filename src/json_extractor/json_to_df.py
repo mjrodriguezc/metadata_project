@@ -6,7 +6,7 @@ import json
 ############### For SINGLE analysis ###############
 
 # Get dataframe from one json file
-def json_to_df (file):
+def one_json_to_df (file):
     json_file = open(file)
     json_dicc = json.load(json_file)
     df_generalDesc = pd.json_normalize(json_dicc['generalDesc'])
@@ -31,3 +31,17 @@ def json_to_df (file):
     working_df['id_experiment'] = json_dicc ['id']
 
     return working_df
+
+def json_files_to_df(file_path):
+    json_files = [f for f in os.listdir(file_path) if f.endswith('.json')]
+    dfs = []
+    for json_file in json_files:
+        df = one_json_to_df(os.path.join(file_path, json_file))
+        dfs.append(df)
+    return dfs
+
+
+
+
+
+

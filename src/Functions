@@ -1,0 +1,232 @@
+import pandas as pd
+import os
+import json
+#import spacy
+#import numpy as np
+#import nltk
+#import sciscpacy
+#from nltk.corpus import stopwords
+#from nltk.tokenize import word_tokenize
+
+
+###### For one data frame  ######
+def count_words(phrase):
+    words = phrase.split()
+    return len(words)
+
+def character_long (new_list, row_header, number_of_elements,df):
+    for value in number_of_elements:
+        valor = len(df[row_header][value])
+        new_list.append(valor)
+    return new_list
+
+def number_of_words (row_header, number_of_elements, df,lista):
+    for value in number_of_elements:
+        phrase = df[row_header][value]
+        words_test = count_words(phrase)
+        lista.append(words_test)
+    return lista
+
+def missing_values_table(df): 
+        mis_val = df.isnull().sum()
+        mis_val_percent = 100 * df.isnull().sum()/len(df)
+        mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+        mis_val_table_ren_columns = mis_val_table.rename(
+        columns = {0 : 'Missing Values', 1 : '% of Total Values'})
+        return mis_val_table_ren_columns 
+
+def entities_recognition(feature,df):
+    lista = []
+    count = 0
+    while count < len(df):
+        phrase = df[feature][count]
+        doc_phrase = nlp(phrase)
+        value_to_list = list(doc_phrase.ents)
+        lista.append(value_to_list)
+        count += 1
+        
+    return lista
+
+def lista_entities_to_strings(lista):
+    count = 0
+    lista_all_strings = []
+    while count < len(lista):
+        list_of_string = [span.text for span in lista[count]]
+        lista_all_strings.append(list_of_string)
+        count +=1
+
+    return lista_all_strings
+
+def count_entities (feature,df):
+    count = 0
+    lista_amount = []
+    while count < len(df):
+        value = len(df[feature][count])
+        lista_amount.append(value)
+        count += 1
+        
+    return lista_amount
+
+
+###### For multiple data frames  ######
+
+### Cleaning the data
+
+# Removing the columns determineted by the user
+def column_to_remove(list_of_df, column_to_remove):
+    for i, df in enumerate(dfs):
+        if column_to_remove in df.columns:
+            dfs[i] = df.drop(columns = column_to_remove)
+        else:
+            print(f"Data frame {i+1} does not have the column:'{column_to_remove}'.")
+
+
+
+### Statistics analysis
+            
+# Number fo words           
+def number_of_words (row_header, number_of_elements, df,lista):
+    count = 0
+    for value in number_of_elements:
+        
+        if count < len(df):
+            objeto = df[value][row_header]
+            complete_phrase = objeto.to_string()
+            phrase = complete_phrase.split()
+            phrase.pop(0)
+            total_number = len(phrase)
+            lista.append(total_number)
+            count +=1
+        else:
+            break
+    return lista
+
+
+# Number of characters
+def character_long (row_header, number_of_elements, df, new_list):
+    count = 0
+    for value in number_of_elements:
+        if count < len(df):
+            valor = len(df[value][row_header][0])
+            new_list.append(valor)
+            count +=1
+        else:
+            break
+    return new_list
+
+# Compare list
+def compare_list (list1, list2, threshold = 10):
+    sum_list1 = sum(list1)
+    sum_list2 = sum(list2)
+    
+    if sum_list1 > sum_list2:
+        larget_list = "List 1"
+    elif sum_list2 > sum_list1:
+        larget_list = "List 2"
+    else:
+        return "Both list have the same sum values", None
+    
+    percentage_difference = abs(sum_list1 - sum_list2) / ((sum_list1 + sum_list2) / 2) * 100
+    
+    if percentage_difference > threshold:
+        return f"{larget_list} has significantly larger values", percentage_difference
+    
+    else:
+        return f"{larget_list} has larger values, but the different is not significant", percentage_difference
+    
+
+
+######## CHECK THIS FUNCTIONS ########
+# Most common value
+def most_common_value (row_header, number_of_elements, df):
+    count = 0
+    lista = []
+    for value in number_of_elements:
+        if count < len(df):
+            most_common = df[value][row_header].value_counts().idxmax()
+            lista.append(most_common)
+            count +=1
+        else:
+            break
+    return lista
+
+# Least common value
+def least_common_value (row_header, number_of_elements, df):
+    count = 0
+    lista = []
+    for value in number_of_elements:
+        if count < len(df):
+            least_common = df[value][row_header].value_counts().idxmin()
+            lista.append(least_common)
+            count +=1
+        else:
+            break
+    return lista
+
+
+
+### Text analysis
+
+# Removing stopping words
+
+def removing_stop_words (df, feature, number_of_elements):
+    count = 0
+    filtered_sentence_list = []
+    for value in number_of_elements:
+        if count < len(df):
+            example = df[count][feature][0]
+            word_tokens = word_tokenize(example)
+            filtered_sentence = [w for w in word_tokens if not w.lower() in stop_words]
+            filtered_sentence_list.append(filtered_sentence)
+            count+=1
+        else:
+            break
+    return filtered_sentence_list
+
+
+# Adding column without stop words
+
+def add_column_wo_stop_words (dfs, title_wo_stop_words, feature_wo_stop_words):
+    #count = 0
+    for i in range(len(dfs)):
+        working_df = dfs[i]
+        working_df[title_wo_stop_words] = ''
+        working_df[title_wo_stop_words][0] = feature_wo_stop_words[i]
+        list(working_df[title_wo_stop_words][0])
+        #working_df[title_wo_stop_words] = ''
+        #working_df.loc[i,title_wo_stop_words] = feature_wo_stop_words[i]
+        #working_df.at[0, title_wo_stop_words] = feature_wo_stop_words[i] 
+        #count += 1
+
+
+## Entities recognition fuctions
+
+# Entities recognition
+def entities_recognition(dfs, feature):
+    #count = 0
+    lista = []
+    for i in range(len(dfs)):
+        phrase =  dfs[i][feature][0]
+        doc_phrase = nlp(phrase) #Upload the nlp model nlp spacy.load("../en_core_sci_sm-0.5.3"). Import scispacy
+        value_to_list = list(doc_phrase.ents)
+        lista.append(value_to_list)
+    return lista
+
+# Entities to new column
+def add_column_entities (dfs, title_wo_stop_words, feature_entities):
+    #count = 0
+    for i in range(len(dfs)):
+        working_df = dfs[i]
+        working_df[title_wo_stop_words] = ''
+        working_df[title_wo_stop_words][0] = feature_entities[i]
+        list(working_df[title_wo_stop_words][0])
+
+# Creates a list of entities
+def list_of_list_entities (dfs, feature, empty_list):
+    count = 0
+    while count < len(dfs):
+        lista_feature = dfs[count][feature][0]
+        empty_list.extend(lista_feature)
+        count += 1
+            
+    return empty_list
