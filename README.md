@@ -1,4 +1,4 @@
-# Metadata accelerator
+# Metadata Accelerator
 
 Ensuring the availability and accessibility of data is fundamental to advancing knowledge. This idea has been codified as the FAIR principles (Findable, Accessible, Interoperable, and Reusable) in scientific data management. Accurate documentation of studies, commonly known as metadata, is indispensable for achieving this goal. Regrettably, scientific records often fall short, providing inadequate, repetitive, or incomplete descriptions that hinder the seamless flow of knowledge. This project addresses the metadata challenge by identifying common failure points in descriptions and generating better-structured metadata using NLP and LLMs, with a focus on sustainability.
 
