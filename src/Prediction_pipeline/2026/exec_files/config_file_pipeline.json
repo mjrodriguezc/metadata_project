@@ -1,0 +1,6 @@
+{
+    "csv_file": "df_biodare2_ratio_entities_20250504.csv",
+    "model_id": "meta-llama/Llama-3.2-3B-Instruct",
+    "prompt_llm": "Can you tell me which scientific species was used in this study?",
+    "output_csv_file": "prediction_pipeline_BioDare2_20260709.csv"
+}
