@@ -1,0 +1,9 @@
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.8
+ipykernel>=6.29
+transformers==4.51.3
+spacy==3.7.4
+scispacy==0.5.3
+accelerate==1.13.0
+torch==2.7.1
