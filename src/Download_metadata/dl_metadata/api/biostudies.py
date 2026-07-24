@@ -1,12 +1,12 @@
 import requests
 
-from dl_biostudies.domain.study import Study
+from dl_metadata.domain.biostudies import Study
 
 
 class BioStudies():
     API_ENDPOINT = 'https://www.ebi.ac.uk/biostudies/api/v1'        
 
-    def get_all_studies(self):
+    def get_all_biostudies(self) -> dict:
         studies = []
         are_more = True
         params = {
@@ -23,7 +23,7 @@ class BioStudies():
                 params['page'] += 1
         return studies
 
-    def get_all_bioimage(self):
+    def get_all_bioimage(self) -> dict:
         studies = []
         are_more = True
         params = {
@@ -40,7 +40,7 @@ class BioStudies():
                 params['page'] += 1
         return studies
 
-    def get_study(self, accession):
+    def get_study(self, accession) -> Study:
         r = requests.get(f'{self.API_ENDPOINT}/studies/{accession}')
         r.raise_for_status()
         return Study(accession, r.json())

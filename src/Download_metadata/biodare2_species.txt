@@ -1,0 +1,44 @@
+Alternaria alternata
+Arabidopsis halleri
+Arabidopsis thaliana
+Bacillus subtilis
+Bombus Terrestris
+Brachypodium distachyon
+Brassica rapa
+Carica papaya
+Chlamydomonas reinhardtii
+Chromera velia
+Danio rerio
+Drosophila melanogaster
+Eurydice pulchra
+Glycine max
+Hordeum vulgare
+Homo sapiens
+Kalachoe laxiflora
+Lactuca sativa L.
+Lemna gibba
+Lemna minor
+Marchantia polymorpha
+Medicago truncatula
+Mus musculus
+Nannochloropsis
+Neurospora crassa
+Oryza sativa
+Ostreococcus tauri
+Phaeodactylum tricornutum
+Phaseolus vulgaris
+Phodopus sungorus
+Photobacterium leiognathi
+Physcometrella patens
+Picea abies
+Populus tremula x alba
+Rattus norvegicus
+Saccharomyces cerevisiae
+Solanum lycopersicum
+Synechococcus elongatus
+Daphnia pulex
+Daphnia magna
+Salmonella enterica
+Salmonella bongori
+Klebsiella aerogenes
+Escherichia coli

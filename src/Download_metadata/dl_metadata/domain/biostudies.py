@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class Study:
     accession: str
@@ -26,6 +27,7 @@ class Study:
         return {
             a.get('value')
             for sub in self.subsections
+            if not type(sub) == list
             for a in sub.get('attributes', [])
             if a.get('name') == 'Organism' and a.get('value')
         }
