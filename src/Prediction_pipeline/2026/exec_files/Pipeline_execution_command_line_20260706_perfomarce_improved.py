@@ -168,6 +168,10 @@ def lookup_full(name: str):
         return name, (scientific_name, str(tax_id), term_uri)
     return name, (None, None, None)
 
+
+
+
+
 # **************************************** PIPELINE **********************************************************
 ### STEP 1. SciSpacy
 
@@ -632,6 +636,58 @@ def run_complete_pipeline(df, model_id, prompt):
     return df, count_match_species_scispacy, count_match_species_biobert, count_match_species_llm
 
 
+# **** Standardize values from dataframe **********
+
+
+
+
+
+# ******************************************** Study type *******************************************************
+
+def study_type_prediction(df, field, prompt, model_id, client):
+
+    wk_field = str(df[field])
+    all_possible_options = list(wk_field)
+
+    for row, i in df.itterow():
+
+        prompt_complete = prompt + "Choose only one possible option from this list and justify your choice: " + str(all_possible_options)
+
+        if "Llama" or "Mistral" in model_id:
+
+            pipe = load_llm_pipeline(model_id, 256)
+            pipe.model.generation_config.max_length = None
+
+            message = [
+                        {"role": "system", "content":"This is your context: " + str(df.at[row, "text_combined"])},
+                        {"role": "user", "content": prompt_complete}, #"Can you tell me which scientific species was used in this study?"},
+                    ]
+
+            outputs = pipe(message)
+            response = outputs[0]["generated_text"][-1]["content"]
+            clean_response = remove_special_characters(response).lower()
+
+
+        if "gpt" or "GPT" in model_id:
+        
+            response = client.chat.completions.create(
+                model=model_id,  # use a real model id you have access to
+                messages=[
+                    {"role": "system", "content": "This is your context: " + str(df.at[row, "text_combined"])},
+                    {"role": "user", "content": "Based on the context provided, give me the name of three scientific species that could be used in this study. If you don't know, say 'I don't know'."}
+                ],
+            )
+
+            clean_response = response.choices[0].message.content
+                    
+        df.at[row, 'Study_type_LLM'] = clean_response
+        print(f"Processed row {row} for species extraction.")
+
+
+    return df
+
+
+
 
 
 def write_output(csv_file, output_df, small_output):
@@ -669,23 +725,31 @@ def main():
 
             csv_file = config['csv_file']
             model_id = config['model_id']
-            prompt = config['prompt_llm']
+            prompt_species = config['prompt_llm']
+            prompt_study_type = config['prompt_study_type']
             output_csv_file = config['output_csv_file']
+            field_to_evalute = config['field_to_evaluate']
 
             df = load_data(csv_file)
             wk_df = combined_text_in_file(df,["Name", "Purpose", "Description", "Comments"], "text_combined")
 
-            df_complete, count_match_species_scispacy, count_match_species_biobert, count_match_species_llm = run_complete_pipeline(wk_df, model_id, prompt)
+            if "species" in field_to_evalute:
 
-            #df_complete = suggest_name(df_LLM, "text_combined", model_id)
+                df_complete, count_match_species_scispacy, count_match_species_biobert, count_match_species_llm = run_complete_pipeline(wk_df, model_id, prompt_species)
+                #df_complete = suggest_name(df_LLM, "text_combined", model_id)
+                small_output = f"Count match species Spacy: {count_match_species_scispacy}. Count match species BioBERT: {count_match_species_biobert}. Count match species LLM: {count_match_species_llm}."
 
-            small_output = f"Count match species Spacy: {count_match_species_scispacy}. Count match species BioBERT: {count_match_species_biobert}. Count match species LLM: {count_match_species_llm}."
+                write_output(output_csv_file, df_complete, small_output)
+                #write_output(output_csv_file, df_complete, small_output)
 
-            write_output(output_csv_file, df_complete, small_output)
-            #write_output(output_csv_file, df_complete, small_output)
+                end_time = time.time()
+                print(f"Total execution time: {end_time - start_time:.2f} seconds")
 
-            end_time = time.time()
-            print(f"Total execution time: {end_time - start_time:.2f} seconds")
+            if "study" in field_to_evalute:
+                df_complete = study_type_prediction(df, field_to_evalute, prompt_study_type, model_id, client)
+            
+            else: 
+                print(f"No valid study type specified.")
 
 
         finally:
