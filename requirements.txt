@@ -1,0 +1,7 @@
+pandas
+spacy
+scispacy
+requests
+nltk
+transformers
+torch
