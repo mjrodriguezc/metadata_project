@@ -2,36 +2,6 @@
 
 GENERAL INFORMATION
 
-Title of Dataset: Dataset from the Paper: "The Shape of Biological Metadata: Measuring Repository Richness with Entity-Based NLP Metrics"
-
-Author/Principal Investigator Information
-Name: Maria Juliana Rodriguez-Cubillos
-ORCID: https://orcid.org/0009-0009-6952-9264
-Affiliation: Centre for Engineering Biology, School of Biological Sciences, University of Edinburgh, Edinburgh EH9 3BF, UK & Biomedical Informatics Group, Institute for Machine Learning, School of Informatics, University of Edinburgh, 10 Crichton Street, Edinburgh EH8 9AB, UK
-Email: juliana.rodriguez@ed.ac.uk
-
-Author/Associate or Co-investigator Information
-Name: Tomasz Zieliński
-ORCID: https://orcid.org/0000-0002-0194-5706
-Affiliation: Centre for Engineering Biology, School of Biological Sciences, University of Edinburgh, Edinburgh EH9 3BF, UK
-
-Author/Associate or Co-investigator Information
-Name: Jason R. Swedlow
-ORCID: https://orcid.org/0000-0002-2198-1958
-Affiliation: Divisions of Molecular Cell and Developmental Biology and Computational Biology, University of Dundee, Dundee, Scotland, UK & Chan Zuckerberg Biohub, Redwood City, CA, USA
-
-Author/Associate or Co-investigator Information
-Name: T. Ian Simpson
-ORCID: https://orcid.org/0000-0003-0495-7187
-Affiliation: Biomedical Informatics Group, Institute for Machine Learning, School of Informatics, University of Edinburgh, 10 Crichton Street, Edinburgh EH8 9AB, UK
-
-Corresponding Author
-Name: Andrew J. Millar
-ORCID: https://orcid.org/0000-0003-1756-3654
-Affiliation: Centre for Engineering Biology, School of Biological Sciences, University of Edinburgh, Edinburgh EH9 3BF, UK
-Email: andrew.millar@ed.ac.uk
-
-
 - Date of data collection: June 2025
 - Information about funding sources that supported the collection of the data: UK Research and Innovation - EASTBIO DTPBB/J01446X/1
 
