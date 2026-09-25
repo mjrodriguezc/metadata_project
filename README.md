@@ -1,4 +1,5 @@
-# This readme file was generated on 2026-09-21 by Maria Juliana Rodriguez-Cubillos
+# The Shape of Metadata
+This readme file was generated on 2026-09-21 by Maria Juliana Rodriguez-Cubillos
 
 GENERAL INFORMATION
 
